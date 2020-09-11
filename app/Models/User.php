@@ -57,4 +57,42 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function posts() {
+
+        // Method user->posts() that returns the posts the user has created
+        return $this->hasMany(Post::class);
+    }
+
+    public function plants() {
+
+        // Method user->plants() that returns the users plants
+        // May need to specify table 'user_plants' but I want to test eloquent naming conventions first. 
+        return $this->hasMany(Plant::class);
+    }
+
+    public function follow(User $user)
+    {
+        return $this->following()->save($user);
+    }
+
+    public function unfollow(User $user)
+    {
+        return $this->following()->detach($user);
+    }
+
+    public function following() {
+
+        // Method user->following returns users that current user is following
+        // Need to explicitly state table name follows or else the table will look for user_users
+        return $this->belongsToMany(User::class, 'follows');
+    }
+
+    public function followedBy() {
+
+        // Method user->followedBy returns all users following current user
+        return $this->following()
+            ->where('followed_user_id', $user->id)
+            ->exists();
+    }
 }
