@@ -23,8 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
     ];
 
@@ -58,6 +57,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function path() {
+        // This becomes a method called via $post->path()
+        // I can reference post.show because I named this route in web.php
+        return route('user_profile.show', $this);
+      }
+
     public function posts() {
 
         // Method user->posts() that returns the posts the user has created
@@ -67,8 +72,9 @@ class User extends Authenticatable
     public function plants() {
 
         // Method user->plants() that returns the users plants
+
         // May need to specify table 'user_plants' but I want to test eloquent naming conventions first. 
-        return $this->hasMany(Plant::class);
+        return $this->belongsToMany(Plant::class, 'user_plants', 'user_id', 'plant_id');
     }
 
     public function follow(User $user)

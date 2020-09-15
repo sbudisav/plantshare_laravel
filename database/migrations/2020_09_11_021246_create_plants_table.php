@@ -15,7 +15,7 @@ class CreatePlantsTable extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->char('nickname', 100);
+            $table->char('name', 100);
             $table->char('bionominal', 100);
             $table->text('description');
             $table->unsignedTinyInteger('water_freq');
@@ -24,7 +24,8 @@ class CreatePlantsTable extends Migration
         });
 
         Schema::create('user_plants', function (Blueprint $table) {
-            $table->primary('user_id', 'plant_id');
+            $table->id();
+            $table->char('nickname', 100);
             $table->timestamps();
             
             $table->foreignId('plant_id')

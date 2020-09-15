@@ -9,17 +9,19 @@ class PostsController extends Controller
 {
     public function index()
     {
-      return view('posts.index', ['posts' => Post::latest()->get()]);
+
+      // For now I'm having users post index as a user method to show in users profile
+      // return view('posts.index', ['posts' => Post::latest()->get()]);
     }
 
     public function show(Post $post)
     {
-      return view('posts.show', ['post' => $post]);
+      // Currently no need to show one individual post
     }
 
     public function create()
     {
-      return view('posts.create');
+      // Done via profile or feed
     }
 
     public function store()
@@ -45,7 +47,6 @@ class PostsController extends Controller
       return request()->validate([
         'title' => 'required',
         'body' => 'required',
-        'tags' => 'exists:tags.id',
       ]);
     }
 }

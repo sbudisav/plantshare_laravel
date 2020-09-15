@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
-Route::get('/posts', 'PostsController@index');
-Route::post('/posts', 'PostsController@store');
-Route::get('/posts/create', 'PostsController@create');
-Route::get('/posts/{post}', 'PostsController@show')->name('post.show');
-Route::get('/posts/{post}/edit', 'PostsController@edit');
-Route::put('/posts/{post}', 'PostsController@update');
+
+Route::post('/posts', [PostsController::class, 'store']);
+Route::get('/posts/{post}/edit', [PostsController::class, 'edit']);
+Route::put('/posts/{post}', [PostsController::class, 'update']);
+
+Route::get('/profile/{user:username}', [ProfilesController::class, 'show']);
+Route::get('/profile/{user:username}/edit', '');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
