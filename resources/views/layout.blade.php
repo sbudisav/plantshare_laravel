@@ -71,6 +71,10 @@
 
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button class="font-bold text-lg">Logout</button>
+                    </form>
                     <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
                 @else
                     <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>

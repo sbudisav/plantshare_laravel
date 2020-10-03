@@ -23,8 +23,10 @@ Route::post('/posts', [PostsController::class, 'store']);
 Route::get('/posts/{post}/edit', [PostsController::class, 'edit']);
 Route::put('/posts/{post}', [PostsController::class, 'update']);
 
-Route::get('/profile/{user:username}', [ProfilesController::class, 'show']);
-Route::get('/profile/{user:username}/edit', '');
+Route::get('/profile/{user:username}', [ProfilesController::class, 'show'])->name('user_profile.show');
+
+Route::get('/profile/{user:username}/edit', [ProfilesController::class, 'edit']);
+Route::get('/profile/{user:username}/edit', [ProfilesController::class, 'edit']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
